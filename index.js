@@ -1,13 +1,22 @@
-const ListRendering = {
-  data() {
-    return {
-      todos: [
-        { text: 'todo1' },
-        { text: 'todo2' },
-        { text: 'todo3' }
-      ]
-    }
+
+const Storage = {
+  fetch() {
+    return JSON.parse(localStorage.getItem('todoLists'))
   }
 }
 
-Vue.createApp(ListRendering).mount('.list-rendering')
+const app = new Vue({
+  el: '#app',
+  data: {
+    todoLists: Storage.fetch()
+  },
+  methods: {
+    addText: function() {
+      this.todoLists.push({
+        text: this.text,
+        finished: false
+      })
+      localStorage.setItem('todoLists', JSON.stringify(this.todoLists))
+    }
+  }
+})
