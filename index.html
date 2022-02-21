@@ -21,7 +21,7 @@
           <span class="w80">{{ todo.text }}</span>
           <div class="float-end">
             <button type="button" class="btn btn-outline-success">edit</button>
-            <button type="button" class="btn btn-outline-danger">delete</button>
+            <button type="button" class="btn btn-outline-danger" @click="deleteText(todo)">delete</button>
           </div>
         </li>
       </ul>
