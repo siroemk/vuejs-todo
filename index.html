@@ -18,10 +18,16 @@
       </div>
       <ul class="list-group">
         <li v-for="todo in todoLists" v-bind:key="todo.text" class="list-group-item">
-          <span class="w80">{{ todo.text }}</span>
-          <div class="float-end">
-            <button type="button" class="btn btn-outline-success">edit</button>
-            <button type="button" class="btn btn-outline-danger" @click="deleteText(todo)">delete</button>
+          <div v-if="editIndex !== todo.index">
+            <span class="w80" @click="editText(todo)">{{ todo.text }}</span>
+            <div class="float-end">
+              <button type="button" class="btn btn-outline-success" @click="editText(todo)">edit</button>
+              <button type="button" class="btn btn-outline-danger" @click="deleteText(todo)">delete</button>
+            </div>
+          </div>
+          <div v-else>
+            <input class="form-control" v-model="todo.text">
+            <button type="button" class="btn btn-outline-success" @click="updateText(todo)">update</button>
           </div>
         </li>
       </ul>
