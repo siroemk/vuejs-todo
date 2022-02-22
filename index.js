@@ -23,6 +23,7 @@ const app = new Vue({
     deleteText: function(todo) {
       const index = this.todoLists.indexOf(todo)
       this.todoLists.splice(index, 1)
+      localStorage.setItem('todoLists', JSON.stringify(this.todoLists))
     }
   }
 })
