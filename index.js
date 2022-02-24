@@ -35,6 +35,12 @@ const app = new Vue({
       editTodo['text'] = todo.text
       localStorage.setItem('todoLists', JSON.stringify(this.todoLists))
       this.editIndex = ''
+    },
+    check: function(todo) {
+      const index = this.todoLists.indexOf(todo)
+      const Todo = this.todoLists[index]
+      Todo.finished = !Todo.finished
+      localStorage.setItem('todoLists', JSON.stringify(this.todoLists))
     }
   }
 })
