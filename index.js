@@ -36,6 +36,9 @@ const app = new Vue({
       localStorage.setItem('todoLists', JSON.stringify(this.todoLists))
       this.editIndex = ''
     },
+    cancelText: function() {
+      this.editIndex = null
+    },
     check: function(todo) {
       const index = this.todoLists.indexOf(todo)
       const Todo = this.todoLists[index]

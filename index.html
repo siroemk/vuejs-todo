@@ -30,6 +30,7 @@
           <div v-else>
             <input class="form-control" v-model="todo.text">
             <button type="button" class="btn btn-outline-success" @click="updateText(todo)">update</button>
+            <button type="button" class="btn btn-outline-danger" @click="cancelText">cancel</button>
           </div>
         </li>
       </ul>
