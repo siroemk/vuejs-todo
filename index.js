@@ -20,6 +20,7 @@ const app = new Vue({
         finished: false
       })
       this.save(this.todoLists)
+      this.text = ''
     },
     deleteText: function(todo) {
       const index = this.todoLists.indexOf(todo)
