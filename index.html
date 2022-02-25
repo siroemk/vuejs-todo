@@ -18,7 +18,7 @@
       </div>
       <ul class="list-group">
         <li v-for="todo in todoLists" v-bind:key="todo.text" class="list-group-item">
-          <div v-if="editIndex !== todo.index">
+          <div v-if="currentIndex !== todo.index">
             <input type="checkbox"   @click="check(todo)">
             <span v-if="todo.finished === true" class="w80 text-black-50" @click="editText(todo)">{{ todo.text }}</span>
             <span v-else class="w80" @click="editText(todo)">{{ todo.text }}</span>

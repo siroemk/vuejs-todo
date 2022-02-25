@@ -10,7 +10,7 @@ const app = new Vue({
   data: {
     todoLists: Storage.fetch(),
     text: '',
-    editIndex: null
+    currentIndex: null
   },
   methods: {
     addText: function() {
@@ -19,31 +19,34 @@ const app = new Vue({
         text: this.text,
         finished: false
       })
-      localStorage.setItem('todoLists', JSON.stringify(this.todoLists))
+      this.save(this.todoLists)
     },
     deleteText: function(todo) {
       const index = this.todoLists.indexOf(todo)
       this.todoLists.splice(index, 1)
-      localStorage.setItem('todoLists', JSON.stringify(this.todoLists))
+      this.save(this.todoLists)
     },
     editText: function(todo) {
-      this.editIndex = todo.index
+      this.currentIndex = todo.index
     },
     updateText: function(todo) {
       const index = this.todoLists.indexOf(todo)
       const editTodo = this.todoLists[index]
       editTodo['text'] = todo.text
       localStorage.setItem('todoLists', JSON.stringify(this.todoLists))
-      this.editIndex = ''
+      this.currentIndex = ''
     },
     cancelText: function() {
-      this.editIndex = null
+      this.currentIndex = ''
     },
     check: function(todo) {
       const index = this.todoLists.indexOf(todo)
       const Todo = this.todoLists[index]
       Todo.finished = !Todo.finished
-      localStorage.setItem('todoLists', JSON.stringify(this.todoLists))
+      this.save(this.todoLists)
+    },
+    save: function(todoLists) {
+      localStorage.setItem('todoLists', JSON.stringify(todoLists))
     }
   }
 })
