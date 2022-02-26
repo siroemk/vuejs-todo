@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="ja">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,10 +19,15 @@
       <ul class="list-group">
         <li v-for="todo in todoLists" :key="todo.index" class="list-group-item">
           <div v-if="currentIndex !== todo.index">
-            <input type="checkbox" @click="check(todo)">
-            <span v-if="todo.finished === true" class="text-black-50 d-inline-block" @click="editText(todo)">{{ todo.text }}</span>
-            <span v-else class="d-inline-block" @click="editText(todo)">{{ todo.text }}</span>
-            <div class="float-end">
+            <div v-if="todo.finished" class="d-inline-block">
+              <input type="checkbox" checked @click="check(todo)">
+              <span class="text-black-50" @click="editText(todo)">{{ todo.text }}</span>
+            </div>
+            <div v-else class="d-inline-block">
+              <input type="checkbox" @click="check(todo)">
+              <span @click="editText(todo)">{{ todo.text }}</span>
+            </div>
+            <div class="float-end d-inline-block">
               <button type="button" class="btn btn-outline-success" @click="editText(todo)">edit</button>
               <button type="button" class="btn btn-outline-danger" @click="deleteText(todo)">delete</button>
             </div>
