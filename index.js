@@ -1,4 +1,3 @@
-
 const Storage = {
   fetch() {
     return JSON.parse(localStorage.getItem('todoLists')) || []
