@@ -13,7 +13,7 @@ const app = new Vue({
   data: {
     todoLists: Storage.fetch(),
     text: '',
-    currentIndex: null
+    currentIndex: ''
   },
   methods: {
     addText: function() {
@@ -24,7 +24,7 @@ const app = new Vue({
       this.todoLists.push({
         index: new Date().getTime().toString(),
         text: this.text,
-        finished: false
+        isDone: false
       })
       Storage.save(this.todoLists)
       this.text = ''
@@ -38,18 +38,18 @@ const app = new Vue({
         return
       }
       const index = this.todoLists.indexOf(todo)
-      const editTodo = this.todoLists[index]
-      editTodo['text'] = todo.text
+      const todoToEdit = this.todoLists[index]
+      todoToEdit['text'] = todo.text
       Storage.save(this.todoLists)
       this.currentIndex = ''
     },
-    cancelText: function() {
+    cancelUpdating: function() {
       this.currentIndex = ''
     },
-    check: function(todo) {
+    changeStatus: function(todo) {
       const index = this.todoLists.indexOf(todo)
       const Todo = this.todoLists[index]
-      Todo.finished = !Todo.finished
+      Todo.isDone = !Todo.isDone
       Storage.save(this.todoLists)
     },
     deleteText: function(todo) {

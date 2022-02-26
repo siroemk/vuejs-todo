@@ -12,19 +12,21 @@
       <header>
         <h1 class="text-center mb-4 mt-4">ToDo</h1>
       </header>
+
       <div class="input-group mb-4">
-        <input class="form-control" type="text" v-model="text" @keydown.enter="addText">
+        <input class="form-control" type="text" v-model="text" @keyup.enter="addText">
         <input class="btn btn-primary" type="submit" value="submit" @click="addText">
       </div>
+
       <ul class="list-group">
         <li v-for="todo in todoLists" :key="todo.index" class="list-group-item">
-          <div v-if="currentIndex !== todo.index">
-            <div v-if="todo.finished" class="d-inline-block">
-              <input type="checkbox" checked @click="check(todo)">
+          <div v-if="todo.index !== currentIndex">
+            <div v-if="todo.isDone" class="d-inline-block">
+              <input type="checkbox" checked @click="changeStatus(todo)">
               <span class="text-black-50" @click="editText(todo)">{{ todo.text }}</span>
             </div>
             <div v-else class="d-inline-block">
-              <input type="checkbox" @click="check(todo)">
+              <input type="checkbox" @click="changeStatus(todo)">
               <span @click="editText(todo)">{{ todo.text }}</span>
             </div>
             <div class="float-end d-inline-block">
@@ -33,10 +35,10 @@
             </div>
           </div>
           <div v-else>
-            <input class="form-control w-75 d-inline-block" v-model="todo.text" @keydown.enter="updateText(todo)">
+            <input class="form-control w-75 d-inline-block" v-model="todo.text" @keyup.enter="updateText(todo)">
             <div class="float-end">
               <button type="button" class="btn btn-outline-success" @click="updateText(todo)">update</button>
-              <button type="button" class="btn btn-outline-danger" @click="cancelText">cancel</button>
+              <button type="button" class="btn btn-outline-danger" @click="cancelUpdating">cancel</button>
             </div>
           </div>
         </li>
