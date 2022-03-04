@@ -15,7 +15,7 @@ const app = new Vue({
     currentIndex: ''
   },
   methods: {
-    addText: function() {
+    addText() {
       if(this.text === '') {
         alert("ToDoを入力してください")
         return
@@ -28,10 +28,10 @@ const app = new Vue({
       Storage.save(this.todoLists)
       this.text = ''
     },
-    editText: function(todo) {
+    editText(todo) {
       this.currentIndex = todo.index
     },
-    updateText: function(todo) {
+    updateText(todo) {
       if(todo.text === '') {
         alert("ToDoを入力してください")
         return
@@ -42,16 +42,16 @@ const app = new Vue({
       Storage.save(this.todoLists)
       this.currentIndex = ''
     },
-    cancelUpdating: function() {
+    cancelUpdating() {
       this.currentIndex = ''
     },
-    changeStatus: function(todo) {
+    changeStatus(todo) {
       const index = this.todoLists.indexOf(todo)
       const Todo = this.todoLists[index]
       Todo.isDone = !Todo.isDone
       Storage.save(this.todoLists)
     },
-    deleteText: function(todo) {
+    deleteText(todo) {
       const index = this.todoLists.indexOf(todo)
       this.todoLists.splice(index, 1)
       Storage.save(this.todoLists)
