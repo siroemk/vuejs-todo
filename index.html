@@ -14,31 +14,31 @@
       </header>
 
       <div class="input-group mb-4">
-        <input class="form-control" type="text" v-model="text" @keyup.enter="addText">
-        <input class="btn btn-primary" type="submit" value="submit" @click="addText">
+        <input class="form-control" type="text" v-model="text" @keyup.enter="addTodo">
+        <input class="btn btn-primary" type="submit" value="submit" @click="addTodo">
       </div>
 
       <ul class="list-group">
-        <li v-for="todo in todoLists" :key="todo.index" class="list-group-item">
-          <div v-if="todo.index !== currentIndex">
+        <li v-for="todo in todoLists" :key="todo.id" class="list-group-item">
+          <div v-if="todo.id !== editingId">
             <div v-if="todo.isDone" class="d-inline-block">
-              <input type="checkbox" checked @click="changeStatus(todo)">
-              <span class="text-black-50" @click="editText(todo)">{{ todo.text }}</span>
+              <input type="checkbox" checked @click="toggleStatus(todo)">
+              <span class="text-black-50" @click="editTodo(todo)">{{ todo.text }}</span>
             </div>
             <div v-else class="d-inline-block">
-              <input type="checkbox" @click="changeStatus(todo)">
-              <span @click="editText(todo)">{{ todo.text }}</span>
+              <input type="checkbox" @click="toggleStatus(todo)">
+              <span @click="editTodo(todo)">{{ todo.text }}</span>
             </div>
             <div class="float-end d-inline-block">
-              <button type="button" class="btn btn-outline-success" @click="editText(todo)">edit</button>
-              <button type="button" class="btn btn-outline-danger" @click="deleteText(todo)">delete</button>
+              <button type="button" class="btn btn-outline-success" @click="editTodo(todo)">edit</button>
+              <button type="button" class="btn btn-outline-danger" @click="deleteTodo(todo)">delete</button>
             </div>
           </div>
           <div v-else>
-            <input class="form-control w-75 d-inline-block" v-model="todo.text" @keyup.enter="updateText(todo)">
+            <input class="form-control w-75 d-inline-block" v-model="todo.text" @keyup.enter="updateTodo(todo)">
             <div class="float-end">
-              <button type="button" class="btn btn-outline-success" @click="updateText(todo)">update</button>
-              <button type="button" class="btn btn-outline-danger" @click="cancelUpdating">cancel</button>
+              <button type="button" class="btn btn-outline-success" @click="updateTodo(todo)">update</button>
+              <button type="button" class="btn btn-outline-danger" @click="cancelEditing">cancel</button>
             </div>
           </div>
         </li>

@@ -12,26 +12,26 @@ const app = new Vue({
   data: {
     todoLists: Storage.fetch(),
     text: '',
-    currentIndex: ''
+    editingId: ''
   },
   methods: {
-    addText() {
+    addTodo() {
       if(this.text === '') {
         alert("ToDoを入力してください")
         return
       }
       this.todoLists.push({
-        index: new Date().getTime().toString(),
+        id: new Date().getTime().toString(),
         text: this.text,
         isDone: false
       })
       Storage.save(this.todoLists)
       this.text = ''
     },
-    editText(todo) {
-      this.currentIndex = todo.index
+    editTodo(todo) {
+      this.editingId = todo.id
     },
-    updateText(todo) {
+    updateTodo(todo) {
       if(todo.text === '') {
         alert("ToDoを入力してください")
         return
@@ -40,18 +40,18 @@ const app = new Vue({
       const todoToEdit = this.todoLists[index]
       todoToEdit['text'] = todo.text
       Storage.save(this.todoLists)
-      this.currentIndex = ''
+      this.editingId = ''
     },
-    cancelUpdating() {
-      this.currentIndex = ''
+    cancelEditing() {
+      this.editingId = ''
     },
-    changeStatus(todo) {
+    toggleStatus(todo) {
       const index = this.todoLists.indexOf(todo)
-      const Todo = this.todoLists[index]
-      Todo.isDone = !Todo.isDone
+      const todoToToggle = this.todoLists[index]
+      todoToToggle.isDone = !todoToToggle.isDone
       Storage.save(this.todoLists)
     },
-    deleteText(todo) {
+    deleteTodo(todo) {
       const index = this.todoLists.indexOf(todo)
       this.todoLists.splice(index, 1)
       Storage.save(this.todoLists)
