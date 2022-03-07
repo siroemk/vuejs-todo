@@ -37,8 +37,7 @@ const app = new Vue({
         alert("ToDoを入力してください")
         return
       }
-      const index = this.todoLists.indexOf(todo)
-      const todoToEdit = this.todoLists[index]
+      const todoToEdit = this.todoLists.find((todoList) => todoList.id === todo.id)
       todoToEdit['text'] = todo.text
       Storage.save(this.todoLists)
       this.editingId = ''
@@ -47,13 +46,12 @@ const app = new Vue({
       this.editingId = ''
     },
     toggleStatus(todo) {
-      const index = this.todoLists.indexOf(todo)
-      const todoToToggle = this.todoLists[index]
+      const todoToToggle = this.todoLists.find((todoList) => todoList.id === todo.id)
       todoToToggle.isDone = !todoToToggle.isDone
       Storage.save(this.todoLists)
     },
     deleteTodo(todo) {
-      const index = this.todoLists.indexOf(todo)
+      const index = this.todoLists.findIndex((todoList) => todoList.id === todo.id)
       this.todoLists.splice(index, 1)
       Storage.save(this.todoLists)
     }
