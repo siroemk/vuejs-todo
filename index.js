@@ -1,9 +1,10 @@
 const Storage = {
+  key: 'todoLists',
   fetch() {
-    return JSON.parse(localStorage.getItem('todoLists')) || []
+    return JSON.parse(localStorage.getItem(this.key)) || []
   },
   save(todoLists) {
-    localStorage.setItem('todoLists', JSON.stringify(todoLists))
+    localStorage.setItem(this.key, JSON.stringify(todoLists))
   }
 }
 
