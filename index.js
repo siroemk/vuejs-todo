@@ -1,9 +1,11 @@
+/* global Vue */
+
 const Storage = {
   key: 'todoLists',
-  fetch() {
+  fetch () {
     return JSON.parse(localStorage.getItem(this.key)) || []
   },
-  save(todoLists) {
+  save (todoLists) {
     localStorage.setItem(this.key, JSON.stringify(todoLists))
   }
 }
@@ -16,9 +18,9 @@ const app = new Vue({
     editingId: ''
   },
   methods: {
-    addTodo() {
-      if(this.text === '') {
-        alert("ToDoを入力してください")
+    addTodo () {
+      if (this.text === '') {
+        alert('ToDoを入力してください')
         return
       }
       this.todoLists.push({
@@ -29,31 +31,33 @@ const app = new Vue({
       Storage.save(this.todoLists)
       this.text = ''
     },
-    editTodo(todo) {
+    editTodo (todo) {
       this.editingId = todo.id
     },
-    updateTodo(todo) {
-      if(todo.text === '') {
-        alert("ToDoを入力してください")
+    updateTodo (todo) {
+      if (todo.text === '') {
+        alert('ToDoを入力してください')
         return
       }
       const todoToEdit = this.todoLists.find((todoList) => todoList.id === todo.id)
-      todoToEdit['text'] = todo.text
+      todoToEdit.text = todo.text
       Storage.save(this.todoLists)
       this.editingId = ''
     },
-    cancelEditing() {
+    cancelEditing () {
       this.editingId = ''
     },
-    toggleStatus(todo) {
+    toggleStatus (todo) {
       const todoToToggle = this.todoLists.find((todoList) => todoList.id === todo.id)
       todoToToggle.isDone = !todoToToggle.isDone
       Storage.save(this.todoLists)
     },
-    deleteTodo(todo) {
+    deleteTodo (todo) {
       const index = this.todoLists.findIndex((todoList) => todoList.id === todo.id)
       this.todoLists.splice(index, 1)
       Storage.save(this.todoLists)
     }
   }
 })
+
+app.$mount('#app')
